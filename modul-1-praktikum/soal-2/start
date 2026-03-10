@@ -1,0 +1,11 @@
+docker build -t nerv-db .
+
+docker run -d \
+  --name database-shinji \
+  --hostname database-shinji \
+  --cpus="2.0" \
+  --memory="2048m" \
+  -v ./db:/var/data/db \
+  nerv-db
+
+docker exec -it database-shinji bash
