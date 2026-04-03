@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build: ./lat-soal    
+    container_name: lat-mod2
+    ports:
+      - "8080:80"
+    volumes:
+      - ./lat-soal:/app
+      - /app/node_modules
