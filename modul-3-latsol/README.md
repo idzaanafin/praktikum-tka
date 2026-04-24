@@ -46,3 +46,4 @@ multipass info maintenance-host | grep IPv4
 
 ## 5. cek website
 buka sesuai IP maintenance-host di browser, jika sudah biru maka berhasil
+![assets/bukti.png](assets/latsol-modul3.png)
