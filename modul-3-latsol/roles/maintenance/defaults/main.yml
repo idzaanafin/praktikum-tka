@@ -1,0 +1,4 @@
+---
+# defaults file for roles/maintenance
+bg_color: "red"
+message: "Website under maintenance"

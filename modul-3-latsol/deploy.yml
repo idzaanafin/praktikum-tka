@@ -1,0 +1,11 @@
+---
+# deploy.yml - Playbook Utama
+- name: Deployment Halaman Maintenance dengan Docker
+  hosts: maintenance_servers
+  become: true
+
+  roles:
+    - role: docker
+    - role: maintenance
+      vars:
+        bg_color: "blue"

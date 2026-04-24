@@ -1,0 +1,24 @@
+---
+# tasks file for roles/maintenance
+- name: Buat direktori untuk file HTML
+  file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+
+- name: Generate file index.html dari template Jinja2
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+
+- name: Jalankan Nginx melalui Container Docker
+  community.docker.docker_container:
+    name: maintenance-nginx
+    image: nginx:latest
+    state: started
+    restart_policy: always
+    published_ports:
+      - "80:80"
+    volumes:
+      - /var/www/html:/usr/share/nginx/html:ro
