@@ -1,8 +1,0 @@
-# inventory.yml
-all:
-  children:
-    maintenance_servers:
-      hosts:
-        maintenance-host:
-          ansible_host: 192.168.2.4  # Masukkan IP yang dicatat tadi
-          ansible_user: ubuntu
