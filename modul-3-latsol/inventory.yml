@@ -3,5 +3,5 @@ all:
     maintenance_servers:
       hosts:
         maintenance-host:
-          ansible_host: 192.168.2.4
+          ansible_host: 192.168.2.5
           ansible_user: ubuntu
