@@ -1,0 +1,13 @@
+# inventory.yml
+all:
+  children:
+    node1:
+      hosts:
+        vps1:
+          ansible_host: 143.198.212.108
+          ansible_user: root
+    node2:
+      hosts:
+        vps2:
+          ansible_host: 143.198.197.59
+          ansible_user: root

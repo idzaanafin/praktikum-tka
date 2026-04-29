@@ -1,0 +1,7 @@
+---
+- name: Install Docker di semua node
+  hosts: all
+  become: true
+  roles:
+    - role: docker
+
