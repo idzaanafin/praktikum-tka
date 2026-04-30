@@ -1,0 +1,52 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/backend
+# a. Membuka port backend sesuai backend_port [cite: 42]
+- name: Membuka port backend di firewall
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: "{{ backend_port | string }}"
+    proto: tcp
+
+- name: Memastikan direktori aplikasi ada di VPS
+  file:
+    path: "~/app-backend"
+    state: directory
+    mode: '0755'
+
+- name: Mengirim folder backend ke VPS
+  copy:
+    src: backend/
+    dest: "~/app-backend/backend/"
+    mode: '0644'
+
+- name: Mengolah template .env ke VPS
+  template:
+    src: env.j2
+    dest: "~/app-backend/.env"
+    mode: '0600'
+
+- name: Mengolah template docker-compose.yml ke VPS
+  template:
+    src: docker-compose.yml.j2
+    dest: "~/app-backend/docker-compose.yml"
+    mode: '0644'
+
+# b. Menyalakan backend dengan Docker Compose [cite: 43]
+- name: Menjalankan container menggunakan Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "~/app-backend"
+    state: present
+    build: always
+
+# c. Health check menggunakan perintah "uri"
+- name: Melakukan health check ke backend
+  ansible.builtin.uri:
+    url: "http://localhost:{{ backend_port }}/" # Diarahkan ke root sesuai server.js
+    method: GET
+    status_code: 200
+  register: health_result
+  until: health_result.status == 200
+  retries: 15  # Ditambah karena ada setTimeout 5 detik di server.js
+  delay: 5

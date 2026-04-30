@@ -5,3 +5,7 @@
   roles:
     - role: docker
 
+- name: Setup Backend Service
+  hosts: backend
+  roles:
+    - role: backend
